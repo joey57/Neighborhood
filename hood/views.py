@@ -6,11 +6,19 @@ from django.contrib import messages
 from .forms import UserRegisterForm, UpdateProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .models import Profile, NeighbourHood
 
 # Create your views here.
 def index(request):
   return render(request, 'index.html')
-  
+
+def hoods(request):
+  all_hoods = NeighbourHood.objects.all()
+  all_hoods = all_hoods[::-1]
+  params = {
+    'all_hoods': all_hoods,
+  }
+  return render(request, 'all_hoods.html', params)
 
 
 def register(request):
