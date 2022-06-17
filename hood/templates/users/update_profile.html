@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="row mt-5"><br><br></div>
+
+<div class="container bg-warning editprofile" style="margin-top:-4% ">
+  <div class="row">
+    <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <h3 class="text-center">Update Profile</h3>
+         <form action="" method="post" novalidate enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form | crispy }}
+          <button class="btn btn-sm btn-outline-primary"> Update</button>
+          <button type="button" class="btn btn-sm btn-outline-danger " data-dismiss="modal">
+          <a href="{% url 'profile' user.username %}">Cancel</a>
+         </button>
+        </form>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+{% endblock %}
