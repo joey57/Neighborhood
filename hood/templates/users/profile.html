@@ -12,10 +12,10 @@
             <h5 class="text-center mt-3">{{user.username}}</h5>
             <p class="text-center"> {{user.email}}</p>
             <p class="text-center">{{user.location}}</p>
-            
-            <p class="text-center">Current Hood <a class="btn btn-sm btn-info" href=" "> </a>
+            {% if request.user.profile.neighbourhood %}
+            <p class="text-center">Current Hood <a class="btn btn-sm btn-info" href=" ">{{ user.profile.neighbourhood.name }}</a>
             </p>
-            
+            {% endif %}
             <a href="{% url 'update-profile' user.username %}">
                 <i class="fas fa-edit"></i>&nbsp;
                 &nbsp; Edit Profile
