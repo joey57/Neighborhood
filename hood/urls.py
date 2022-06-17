@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
   path('', views.index, name = 'index'),
   path('update_profile/<username>/edit/', views.update_profile, name='update-profile'),
+  path('all-hoods/', views.hoods, name='hood'),
 
 ]
 if settings.DEBUG:
