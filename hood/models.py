@@ -27,4 +27,14 @@ class NeighbourHood(models.Model):
 
   def __str__(self):
     return f'{self.name} hood'
+
+  def create_neighborhood(self):
+    self.save()
+
+  def delete_neighborhood(self):
+    self.delete()
+
+  @classmethod
+  def find_neighborhood(cls, neighborhood_id):
+    return cls.objects.filter(id=neighborhood_id)  
   
