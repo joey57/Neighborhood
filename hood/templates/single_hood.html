@@ -38,7 +38,7 @@
             <div class="col-md-12">
                 <a href="" class="btn btn-sm btn-info mb-4 mr-4" data-bs-toggle="modal" data-bs-target="#ModalCenter">Add
                     Business</a>
-                <a class="btn btn-sm btn-info mb-4" href="">New Post</a>
+                <a class="btn btn-sm btn-info mb-4" href="{% url 'post' hood.id %}">New Post</a>
                 {% if hood.admin == user.profile %}
                 <a href=" " class="btn btn-sm btn-info mb-4 ml-4">Members</a>
                 {% endif %}
