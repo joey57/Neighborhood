@@ -3,10 +3,10 @@ from django.shortcuts import render, redirect
 from django.http  import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm, UpdateProfileForm, NeighbourHoodForm
+from .forms import UserRegisterForm, UpdateProfileForm, NeighbourHoodForm, BusinessForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Profile, NeighbourHood
+from .models import Profile, NeighbourHood, Business, Post
 
 # Create your views here.
 def index(request):
@@ -31,6 +31,29 @@ def create_hood(request):
   else:
     form = NeighbourHoodForm()
   return render(request, 'newhood.html', {'form': form})
+
+def single_hood(request, hood_id):
+  hood = NeighbourHood.objects.get(id=hood_id)
+  business = Business.objects.filter(neighbourhood=hood)
+  posts = Post.objects.filter(hood=hood)
+  posts = posts[::-1]
+  if request.method == 'POST':
+    form = BusinessForm(request.POST)
+    if form.is_valid():
+      biz_form = form.save(commit=False)
+      biz_form.neighbourhood = hood
+      biz_form.user = request.user.profile
+      biz_form.save()
+      return redirect('single-hood', hood.id)
+  else:
+    form = BusinessForm()
+  params = {
+    'hood': hood,
+    'business': business,
+    'form': form,
+    'posts': posts
+  }
+  return render(request, 'single_hood.html', params)
 
 
 def register(request):
