@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, NeighbourHood
+from .models import Business, Profile, NeighbourHood
 
 class UserRegisterForm(UserCreationForm):
   email = forms.EmailField()
@@ -19,3 +19,9 @@ class NeighbourHoodForm(forms.ModelForm):
   class Meta:
     model = NeighbourHood
     exclude = ('admin',)
+
+class BusinessForm(forms.ModelForm):
+  class Meta:
+    model = Business
+    exclude =('user', 'neighbourhood')
+    
