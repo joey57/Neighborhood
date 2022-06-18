@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http  import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm, UpdateProfileForm, NeighbourHoodForm, BusinessForm
+from .forms import UserRegisterForm, UpdateProfileForm, NeighbourHoodForm, BusinessForm, PostForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Profile, NeighbourHood, Business, Post
@@ -83,6 +83,20 @@ def search_business(request):
   else:
     message = "You haven't searched for any business"
   return render(request, "search_results.html")
+
+def create_post(request, hood_id):
+  hood = NeighbourHood.objects.get(id=hood_id)
+  if request.method == 'POST':
+    form = PostForm(request.POST)
+    if form.is_valid():
+      post = form.save(commit=False)
+      post.hood = hood
+      post.user = request.user.profile
+      post.save()
+      return redirect('single-hood', hood.id)
+  else:
+    form = PostForm()
+  return render(request, 'post.html', {'form': form})
 
 
 def register(request):
