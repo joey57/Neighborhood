@@ -1,5 +1,5 @@
 from cmath import log
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http  import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -54,6 +54,20 @@ def single_hood(request, hood_id):
     'posts': posts
   }
   return render(request, 'single_hood.html', params)
+
+@login_required
+def join_hood(request, id):
+    neighbourhood = get_object_or_404(NeighbourHood, id=id)
+    request.user.profile.neighbourhood = neighbourhood
+    request.user.profile.save()
+    return redirect('hood')
+
+def leave_hood(request, id):
+    hood = get_object_or_404(NeighbourHood, id=id)
+    request.user.profile.neighbourhood = None
+    request.user.profile.save()
+    return redirect('hood')
+
 
 def search_business(request):
   if request.method == 'GET':
