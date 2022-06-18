@@ -8,6 +8,7 @@ urlpatterns = [
   path('update_profile/<username>/edit/', views.update_profile, name='update-profile'),
   path('all-hoods/', views.hoods, name='hood'),
   path('new-hood/', views.create_hood, name = 'new-hood'),
+  path('single_hood/<hood_id>', views.single_hood, name='single-hood'),
 
 
 ]
