@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.http  import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserRegisterForm, UpdateProfileForm
+from .forms import UserRegisterForm, UpdateProfileForm, NeighbourHoodForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Profile, NeighbourHood
@@ -19,6 +19,18 @@ def hoods(request):
     'all_hoods': all_hoods,
   }
   return render(request, 'all_hoods.html', params)
+
+def create_hood(request):
+  if request.method == 'POST':
+    form = NeighbourHoodForm(request.POST, request.FILES)
+    if form.is_valid():
+       hood = form.save(commit=False)
+       hood.admin = request.user.profile
+       hood.save()
+       return redirect('hood')
+  else:
+    form = NeighbourHoodForm()
+  return render(request, 'newhood.html', {'form': form})
 
 
 def register(request):
