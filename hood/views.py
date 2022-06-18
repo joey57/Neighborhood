@@ -55,6 +55,21 @@ def single_hood(request, hood_id):
   }
   return render(request, 'single_hood.html', params)
 
+def search_business(request):
+  if request.method == 'GET':
+    name = request.GET.get("title")
+    results = Business.objects.filter(name__icontains=name).all()
+    print(results)
+    message = f'name'
+    params = {
+      'results': results,
+      'message': message
+    }
+    return render(request, 'search_results.html', params)
+  else:
+    message = "You haven't searched for any business"
+  return render(request, "search_results.html")
+
 
 def register(request):
   if request.method == 'POST':
