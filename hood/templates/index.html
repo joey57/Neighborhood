@@ -2,4 +2,42 @@
 {% load static %} 
 {% block content %} 
  {{block.super}}
+
+ <div class="container bg-dark"   >
+  {% if user.is_authenticated %}
+  <div class="text-white text-center" style="margin-top:15%">
+      <h1>Enjoying your Neighbourhood...</h1>
+      <h5 style="margin-top:6%">Would you want to view Businesses around?</h5>
+      <form class="form-inline" method="get" action="{% url 'search' %}">
+        {% csrf_token %}
+        <div class="md-form my-0">
+            <input class="form-control mr-sm-2 " type="text" placeholder="Search Business" name="title" aria-label="Search">
+        </div>
+    </form>
+      {% if user.profile.neighbourhood %}
+
+
+      <a href="{% url 'single-hood' user.profile.neighbourhood.id %}" class="btn btn-sm btn-info mt-4">Explore Your
+          Neighbourhood: <em><b><h5>{{user.profile.neighbourhood.name}}</h5></b></em> 
+      </a>
+    
+      {% else %}
+
+      <a href=""> &nbsp;
+          You Haven't Joined Any Neighbourhood Yet!
+      </a>
+
+      {% endif %}
+
+  </div>
+
+  {% else %}
+
+  <div class="text-white text-center" style="margin-top:15%">
+      <h1>Welcome to The-Neighbourhood!</h1>
+      <h5 style="margin-top:6%">Be Aware of Anything and Everything Happening Around You</h5>
+      <a href="{% url 'hood' %}" class="btn btn-sm btn-info mt-4">Pick Your Neighbourhood</a>
+  </div>
+  {% endif %}
+</div>
 {% endblock %} 
