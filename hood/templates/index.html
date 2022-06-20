@@ -3,7 +3,7 @@
 {% block content %} 
  {{block.super}}
 
- <div class="container bg-dark"   >
+ <div class="container bg-dark">
   {% if user.is_authenticated %}
   <div class="text-white text-center" style="margin-top:15%">
       <h1>Enjoying your Neighbourhood...</h1>
@@ -15,12 +15,9 @@
         </div>
     </form>
       {% if user.profile.neighbourhood %}
-
-
       <a href="{% url 'single-hood' user.profile.neighbourhood.id %}" class="btn btn-sm btn-info mt-4">Explore Your
           Neighbourhood: <em><b><h5>{{user.profile.neighbourhood.name}}</h5></b></em> 
-      </a>
-    
+      </a> 
       {% else %}
 
       <a href=""> &nbsp;
@@ -34,8 +31,8 @@
   {% else %}
 
   <div class="text-white text-center" style="margin-top:15%">
-      <h1>Welcome to The-Neighbourhood!</h1>
-      <h5 style="margin-top:6%">Be Aware of Anything and Everything Happening Around You</h5>
+      <h1>Welcome to My Neighbourhood!</h1>
+      <h5 style="margin-top:6%">Be Aware of Everything Happening Around You</h5>
       <a href="{% url 'hood' %}" class="btn btn-sm btn-info mt-4">Pick Your Neighbourhood</a>
   </div>
   {% endif %}

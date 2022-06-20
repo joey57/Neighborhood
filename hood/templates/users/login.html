@@ -9,13 +9,14 @@
 {% endif %}
 {% block content %} 
 {% load static %}
-  <div class="container mt-5" img src="/static/images/hood.jpg" alt="" >
+  <div class="container mt-5">
+    <div class="row">
     <div class="login-form">
-      <p class="logo text-center">
+      <p class="logo text-white">
         <form method="POST">
             {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Login</legend>
+            <fieldset class="form-group text-white">
+                <legend class="border-bottom mb-4 text-white">Login</legend>
                 {{ form | crispy }}
             </fieldset>
             <div class="from-group">
@@ -24,10 +25,11 @@
         </form>
 
         <div class="border-top pt-3">
-            <small class="text-muted">Need an Account?
-                <a href="{% url 'register' %}">Sign Up</a>
+            <small class="text-white">Need an Account?
+                <a class="text-primary" href="{% url 'register' %}">Sign Up</a>
             </small>
         </div>
     </div>
+   </div>
   </div>  
 {% endblock %}
