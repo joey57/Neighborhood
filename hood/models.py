@@ -12,7 +12,7 @@ class Profile(models.Model):
   neighbourhood = models.ForeignKey('NeighbourHood', on_delete=models.SET_NULL, null=True, related_name='members', blank=True)
 
   def __str__(self):
-    return f'{self.user.username} Profile'
+    return f'{self.user.username} Profile'    
 
 class NeighbourHood(models.Model):
   name = models.CharField(max_length=50)
@@ -34,6 +34,9 @@ class NeighbourHood(models.Model):
   def delete_neighborhood(self):
     self.delete()
 
+  def save_neighborhood(self):
+    self.save()  
+
   @classmethod
   def find_neighborhood(cls, neighborhood_id):
     return cls.objects.filter(id=neighborhood_id)
@@ -53,6 +56,9 @@ class Business(models.Model):
 
   def delete_business(self):
     self.delete()
+
+  def save_business(self):
+    self.save()  
 
   @classmethod
   def search_business(cls, name):
